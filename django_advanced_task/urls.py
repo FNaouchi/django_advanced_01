@@ -18,10 +18,14 @@ from django.urls import path
 from stores.views import store_list
 from django.conf.urls.static import static
 from django.conf import settings
+from inventories import views, urls
+from stores import urls
+from django.urls import include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('list/', store_list, name='list'),
+    path('stores/', include(('stores.urls', 'stores'), namespace ='stores')),
+    path('inventories/', include(('inventories.urls', 'inventories'), namespace ='inventories')),
 ]
 
 urlpatterns+=static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
